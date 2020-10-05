@@ -1,58 +1,75 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>title</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+<!-- Ke thua view master: admin-layout/master.blade.php -->
+@extends('admin-layout.master')
+@section('title', 'Title list extends from admin-layout')
+@section('content')
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0 text-dark">Danh sach sinh vien</h1>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
 
-</head>
-<body>
-    @extends('student-layout.master')
+    <!-- Main content -->
+    <div class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-lg-12">
+            <table border='1' class='table table-bordered'>
+                <thead>
+                    <th>Name</th>
+                    <th>Phone</th>
+                    <th>Age</th>
+                    <th>Gender</th>
+                    <th>Address</th>
+                    <th>Active</th>
+                    
+                    
+                </thead>
+                <tbody>
+                @foreach($students as $student)
+                        <tr>
+                            <td><a href="student/{{$student->id}}">{{ $student->name }}</a></td>
+                            <td>{{ $student->phone }}</td>
+                            <td>{{ $student->age }} </td>
+                            <td>
+                                @if ($student->gender == 0)
+                                    Female
+                                @elseif ($student->gender == 1)
+                                    Male
+                                @else
+                                    Nothing
+                                @endif
+                            </td>
+                            <td>{{ $student->address }}</td>
+                            <td>{{ $student->is_active == 1 ? 'Yes' : 'No' }}</td>
+                            <form action="{{ route('student.destroy', $student->id) }}" method="POST">
+                            @csrf
+                            <input type='hidden' name='_method' value='DELETE'></input>
+                            </form>
+                            <td>
+                            <a href="{{ route('student.destroy', $student->id) }}">
+                            <button>Delete</button>
+                            </a></td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+          </div>
 
-    @section('title','Title List')
-    @section('header','Header List')
+        </div>
+        <!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+@endsection
 
-    @section('content')
-    <table class="table ">
-        <thead class="thead-dark">
-                <th>Name</th>
-                <th>Phone</th>
-                <th>Age</th>
-                <th>Gender</th>
-                <th>Address</th>
-                <th>Active</th>
-                <th></th>
-        </thead>
-        <tbody>
-            @foreach($students as $student)
-                <tr>
-                    <td>{{$student->name}}</td>
-                    <td>{{$student->phone}}</td>
-                    <td>{{$student->age}}</td>
-                    <td>{{$student->gender}}
-                        @if ($student->gender == 0)
-                            Female
-                        @elseif($student->gender == 1)
-                            Male
-                        @else
-                            Nothing
-                        @endif    
-                        
-                    </td>
-
-                    <td>{{$student->address}}</td>
-
-                    <td>{{$student->is_active == 1 ? 'Yes' : 'No'}}</td>
-
-
-            
-                </tr>
-            @endforeach
-        
-        </tbody>
-    </table>
-    @endsection
-    @section('footer','Footer List')
-</body>
-</html>
+@section('footer', 'Footer list extends')

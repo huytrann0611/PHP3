@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
+use App\Http\Controllers\StudentController;
+use App\Http\Controllers\SubjectController;
 
 
 /*
@@ -62,6 +65,8 @@ route::get('/login', function (){
 //     ->where('name','like',"%$username%")
     
 // });
+Route::resource('student', StudentController::class);
+
 
 
 
