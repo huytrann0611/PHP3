@@ -30,7 +30,8 @@ class StudentController extends Controller
     // create() su dung phuong thuc GET, route name la students.create
     public function create()
     {
-        dd('Student Controller create');
+        return view('students.create');
+
     }
 
     /**
@@ -41,7 +42,15 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $student = new Student;
+        $student->name = $request->name;
+        $student->phone = $request->phone;
+        $student->gender = $request->gender;
+        $student->age = $request->age;
+        $student->address = $request->address;
+        $student->is_active = $request->is_active;
+        $student->save();
+        return redirect()->route('student.index');
     }
 
     /**
@@ -72,7 +81,8 @@ class StudentController extends Controller
      */
     public function edit(Student $student)
     {
-        //
+       
+        return view('students.edit', ['student' => $student]);
     }
 
     /**
@@ -84,7 +94,18 @@ class StudentController extends Controller
      */
     public function update(Request $request, Student $student)
     {
-        //
+                // dd($request->all());
+        // Gan gia tri moi cho cac thuoc tinh cua student can update
+        $student->name = $request->name;
+
+        // Thuc hien goi phuong thuc save() de luu du lieu
+        $student->save();
+
+        // Cach 2: $student->update(['name' => $request->name]);
+        // Hoac $student->update([$request->all()])
+        // Khong can save
+
+        return redirect()->route('student.index');
     }
 
     /**
@@ -95,7 +116,15 @@ class StudentController extends Controller
      */
     public function destroy(Student $student)
     {
-        
+          // Kiem tra ton tai sinh vien -> xoa
+          if($student) {
+            $student->delete(); // tra ve ket qua true/false
+        }
+
+        // Cach 2: Student::destroy($student->id); // tra ve so luong ban ghi bi xoa
+        // Redirect ve danh sach (co thuc hien truy van lay ds moi)
+        return redirect()->route('students.index');
+    
 
     }
 }

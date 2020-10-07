@@ -1,5 +1,4 @@
 @extends('admin-layout.master')
-
 @section('title','Thong Tin Sinh Vien')
 @section('content')
 <div class="content-wrapper">

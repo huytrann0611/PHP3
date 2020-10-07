@@ -21,7 +21,7 @@
       <div class="container-fluid">
         <div class="row">
           <div class="col-lg-12">
-            <table border='1' class='table table-bordered'>
+            <table border='1' class='table table-bordered table-dark'>
                 <thead>
                     <th>Name</th>
                     <th>Phone</th>
@@ -29,6 +29,7 @@
                     <th>Gender</th>
                     <th>Address</th>
                     <th>Active</th>
+                    <th></th>
                     
                     
                 </thead>
@@ -52,10 +53,15 @@
                             <form action="{{ route('student.destroy', $student->id) }}" method="POST">
                             @csrf
                             <input type='hidden' name='_method' value='DELETE'></input>
-                            </form>
                             <td>
                             <a href="{{ route('student.destroy', $student->id) }}">
                             <button>Delete</button>
+                            </form>
+                            <a href="{{ route('student.edit', $student->id) }}">
+                            <button>Edit</button>
+                            <th><a href="{{route('student.create')}}">
+                            <button class="btn btn-success">Thêm</button></a></th>
+                             </a>
                             </a></td>
                         </tr>
                     @endforeach
