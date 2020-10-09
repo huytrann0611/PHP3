@@ -19,6 +19,8 @@ class StudentController extends Controller
         $students = Student::all(); //lay ra het
         // hoac $students = Student::orderBy('id', 'desc')->get();
 
+        $students = Student::paginate(5); // lay ra ds co phan trang (5 phan tu/1trang)
+        // Them param page="gia tri page"
         return view('students.list', ['students' => $students]);
     }
 
@@ -106,6 +108,7 @@ class StudentController extends Controller
         // Khong can save
 
         return redirect()->route('student.index');
+
     }
 
     /**
@@ -123,7 +126,7 @@ class StudentController extends Controller
 
         // Cach 2: Student::destroy($student->id); // tra ve so luong ban ghi bi xoa
         // Redirect ve danh sach (co thuc hien truy van lay ds moi)
-        return redirect()->route('students.index');
+        return redirect()->route('student.index');
     
 
     }

@@ -29,7 +29,9 @@
                     <th>Gender</th>
                     <th>Address</th>
                     <th>Active</th>
-                    <th></th>
+                    <th><a href="{{route('student.create')}}">
+                    <button class="btn btn-success">Thêm</button></a></th>
+                    
                     
                     
                 </thead>
@@ -55,16 +57,17 @@
                             <input type='hidden' name='_method' value='DELETE'></input>
                             <td>
                             <a href="{{ route('student.destroy', $student->id) }}">
-                            <button>Delete</button>
+                            <button class="btn btn-danger mb-4">Xóa</button>
                             </form>
+                            
                             <a href="{{ route('student.edit', $student->id) }}">
-                            <button>Edit</button>
-                            <th><a href="{{route('student.create')}}">
-                            <button class="btn btn-success">Thêm</button></a></th>
+                            <button class="btn btn-primary" >Sửa</button>
                              </a>
                             </a></td>
                         </tr>
                     @endforeach
+                     <!-- Them 1 dong de hien thi nut phan trang -->
+                    <tr><td colspan="7">{{$students->links()}}</td></tr>
                 </tbody>
             </table>
           </div>

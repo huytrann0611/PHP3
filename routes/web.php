@@ -4,6 +4,10 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\SubjectController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CommentController;
+use App\Http\Controllers\PostController;
+use App\Models\Post;
 
 
 /*
@@ -65,7 +69,28 @@ route::get('/login', function (){
 //     ->where('name','like',"%$username%")
     
 // });
+
+
 Route::resource('student', StudentController::class);
+Route::resource('posts', PostController::class);
+Route::resource('comments', CommentController::class);
+Route::resource('categorys', CategoryController::class);
+
+Route::get('subjects', [SubjectController::class, 'index'])
+
+    ->name('subjects.index');
+
+Route::get('/post', function () {
+    $post = \App\Models\Post::find(2);
+    $comment = \App\Models\Comment::find(1);
+    dd($comment->post);
+});
+
+
+
+// Route::get('/students', function () {
+//     // Su dung query builder
+//     // Lay ra mang students
 
 
 
